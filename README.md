@@ -12,7 +12,7 @@ I wrote this library because I couldn't find any existing one to make elements d
 
 In some cases you really need an unobtrusive way to make items draggable, this will do just that.
 
-I use React-DnD a lot as well, but sometimes you really just want to make an element draggable.
+I use React-DnD a lot as well, but sometimes you really just want to make an element draggable :smile:
 
 
 ## Installation
