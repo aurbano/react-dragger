@@ -16,6 +16,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+test-report
 
 # nyc test coverage
 .nyc_output
@@ -57,3 +58,5 @@ typings/
 # dotenv environment variables file
 .env
 
+.idea
+*.iml
