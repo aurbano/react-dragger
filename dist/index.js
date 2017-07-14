@@ -176,6 +176,9 @@ var Dragger = function (_React$PureComponent) {
       if (this.props.target) {
         this.reset(this.props.target);
       }
+      if (this.state.dragging) {
+        this.props.onEnd();
+      }
     }
 
     /**

@@ -69,6 +69,9 @@ export default class Dragger extends React.PureComponent { // eslint-disable-lin
     if (this.props.target) {
       this.reset(this.props.target);
     }
+    if (this.state.dragging) {
+      this.props.onEnd();
+    }
   }
 
   /**
