@@ -38,6 +38,20 @@ export default class Example extends React.PureComponent {
     });
   };
 
+  renderIgnoredArea() {
+    const style = {
+      background: '#efefef',
+      padding: '0.5em 1em',
+      margin: '1em -1em -1em',
+      borderTop: '1px solid #ccc',
+    };
+    return (
+      <div style={ style } className='ignore-this'>
+        Ignored
+      </div>
+    );
+  }
+
   render() {
     const itemStyle = {
       ...this.state.itemLocation,
@@ -47,6 +61,7 @@ export default class Example extends React.PureComponent {
         <p>State: <code>{ this.state.dragState }</code></p>
         <div className='item' ref={ (ref) => this.setState({ ref }) } style={ itemStyle }>
           Drag me!
+          { this.props.ignoreTargets && this.renderIgnoredArea() }
         </div>
 
         { this.state.ref && (
@@ -57,6 +72,7 @@ export default class Example extends React.PureComponent {
             onEnd={ this.onEnd }
             position={ this.state.itemLocation }
             inverted={ this.props.inverted }
+            ignoreTargets={ this.props.ignoreTargets }
           />
         ) }
       </div>

@@ -24,6 +24,7 @@ type Props = {
     left: number,
   },
   inverted?: boolean,
+  ignoreTargets?: Array<string>,
 };
 
 type State = {
@@ -76,10 +77,30 @@ export default class Dragger extends React.PureComponent { // eslint-disable-lin
 
   /**
    * Handle drag start - common code for touch and mouse interactions
-   * @param x
-   * @param y
    */
-  onDragStart = (x: number, y: number) => {
+  onDragStart = (x: number, y: number, e: Event): boolean => {
+    if (this.props.ignoreTargets) {
+      const Target = (e.target: any);
+      if (!Target.matches) {
+        // polyfill matches
+        Target.matches =
+          Target.matchesSelector ||
+          Target.mozMatchesSelector ||
+          Target.msMatchesSelector ||
+          Target.oMatchesSelector ||
+          Target.webkitMatchesSelector ||
+          function (s) {
+            const matches = (this.document || this.ownerDocument).querySelectorAll(s);
+            let i = matches.length;
+            while (--i >= 0 && matches.item(i) !== this) {} // eslint-disable-line no-empty
+            return i > -1;
+          };
+      }
+      if (Target.matches && Target.matches(this.props.ignoreTargets.join(','))) {
+        return false;
+      }
+    }
+
     this.setState({
       dragging: true,
       startPoint: {
@@ -93,6 +114,7 @@ export default class Dragger extends React.PureComponent { // eslint-disable-lin
     });
 
     this.props.onStart();
+    return true;
   };
 
   /**
@@ -167,10 +189,10 @@ export default class Dragger extends React.PureComponent { // eslint-disable-lin
     e.preventDefault();
     e.stopPropagation();
 
-    this.onDragStart(e.touches[0].pageX, e.touches[0].pageY);
-
-    this.props.target.addEventListener('touchmove', this.onTouchMove);
-    this.props.target.addEventListener('touchend', this.onDragEnd);
+    if (this.onDragStart(e.touches[0].pageX, e.touches[0].pageY, e)) {
+      this.props.target.addEventListener('touchmove', this.onTouchMove);
+      this.props.target.addEventListener('touchend', this.onDragEnd);
+    }
   };
 
   onTouchMove = (e: TouchEvent) => {
@@ -184,10 +206,10 @@ export default class Dragger extends React.PureComponent { // eslint-disable-lin
       return;
     }
 
-    this.onDragStart(e.pageX, e.pageY);
-
-    this.props.target.addEventListener('mousemove', this.onMouseMove);
-    this.props.target.addEventListener('mouseup', this.onDragEnd);
+    if (this.onDragStart(e.pageX, e.pageY, e)) {
+      this.props.target.addEventListener('mousemove', this.onMouseMove);
+      this.props.target.addEventListener('mouseup', this.onDragEnd);
+    }
   };
 
   onMouseMove = (e: MouseEvent) => {
@@ -208,4 +230,5 @@ Dragger.propTypes = {
   onEnd: PropTypes.func,
   position: PropTypes.object,
   inverted: PropTypes.bool,
+  ignoreTargets: PropTypes.array,
 };

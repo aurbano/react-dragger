@@ -24,6 +24,15 @@ export default class Examples extends React.PureComponent {
         </h2>
 
         <Example inverted />
+
+        <h2 style={ { marginTop: '10em' } }>
+          <a href="https://github.com/aurbano/react-dragger/blob/master/example/app/src/ExamplePage.js" className="right">
+            <code>&lt;Source&gt;</code>
+          </a>
+          Ignored targets
+        </h2>
+
+        <Example ignoreTargets={ ['.ignore-this'] } />
       </div>
     );
   }
