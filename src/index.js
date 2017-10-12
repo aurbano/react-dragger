@@ -37,7 +37,7 @@ type State = {
   }
 };
 
-export default class Dragger extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class Dragger extends React.PureComponent<Props, State> { // eslint-disable-line react/prefer-stateless-function
   props: Props;
   state: State;
 

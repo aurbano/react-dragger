@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://aurbano.eu/react-dragger/",
-  "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-dragger": "file:../../",
-    "react-scripts": "1.0.10"
-  },
   "scripts": {
     "build:less": "./node_modules/.bin/lessc src/example.less src/example.css",
     "start": "npm run build:less && react-scripts start",
@@ -16,6 +10,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "postinstall": "linklocal"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-dragger": "file:../../",
+    "react-scripts": "1.0.14"
   },
   "devDependencies": {
     "less": "^2.7.2"
