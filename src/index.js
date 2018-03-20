@@ -200,8 +200,11 @@ export default class Dragger extends React.PureComponent<Props, State> { // esli
     this.onDrag(e.touches[0].pageX, e.touches[0].pageY);
   };
 
-  /* Mouse Handlers */
-  onMouseDown = (e: MouseEvent) => {
+  /**
+   * Mouse Handlers
+   * e should be a MouseEvent | TouchEvent, but flow won't get it right..
+   */
+  onMouseDown = (e: MouseEvent | any) => {
     if (e.button === 2 || (e.nativeEvent && e.nativeEvent.which === 2)) {
       return;
     }
